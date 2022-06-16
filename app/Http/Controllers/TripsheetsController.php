@@ -62,6 +62,7 @@ class TripsheetsController extends Controller
      */
     public function store(StoretripsheetsRequest $request)
     {
+        $validated = $request->validated();
         $distance = $request->post('odometer_in') - $request->post('odometer_out');
         $tripsheet = new Tripsheet();
         $tripsheet->user_id = Auth::id();
@@ -113,6 +114,7 @@ class TripsheetsController extends Controller
      */
     public function edit(Tripsheet $tripsheet)
     {
+
         $data['tripsheet'] = $tripsheet;
         $date = substr($tripsheet->period, 0, 10);
         Carbon::setLocale('lt');
@@ -135,6 +137,7 @@ class TripsheetsController extends Controller
      */
     public function update(UpdatetripsheetsRequest $request, Tripsheet $tripsheet)
     {
+        $validated = $request->validated();
         $distance = $request->post('odometer_in') - $request->post('odometer_out');
         $tripsheet->user_id = Auth::id();
         $tripsheet->name = $request->post('name');
