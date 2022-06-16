@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool)env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -81,6 +81,8 @@ return [
     */
 
     'locale' => 'en',
+    'locales' => ['en' => 'English', 'lt' => 'Lithuanian'],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -174,6 +176,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\TripsheetServiceProvider::class,
+        \App\Providers\ReportServiceProvider::class,
 
     ],
 

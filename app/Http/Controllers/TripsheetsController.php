@@ -2,12 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\tripsheets;
 use App\Http\Requests\StoretripsheetsRequest;
 use App\Http\Requests\UpdatetripsheetsRequest;
+use App\Models\CarMake;
+use App\Models\CarModel;
+use App\Models\Fuel;
+use App\Models\FuelOptions;
+use App\Models\FuelType;
+use App\Models\Tripsheet;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class TripsheetsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +28,12 @@ class TripsheetsController extends Controller
      */
     public function index()
     {
-        //
+        $data['tripsheets'] = Tripsheet::where('user_id', Auth::id())->orderBy('id', "desc")->paginate(30);
+        $data['fuel_types'] = FuelType::all();
+        $data['fuel_options'] = FuelOptions::all();
+        $data['car_makes'] = CarMake::all();
+        $data['car_models'] = CarModel::all();
+        return view('tripsheet.list', $data);
     }
 
     /**
@@ -25,62 +43,137 @@ class TripsheetsController extends Controller
      */
     public function create()
     {
-        //
+        $tripsheet = Tripsheet::where('user_id', Auth::id())->orderBy('id', 'DESC')->first();
+        if ($tripsheet != null) {
+            $data['tripsheet'] = Tripsheet::where('user_id', Auth::id())->orderBy('id', 'DESC')->first();
+        }
+        $data['fuels'] = FuelType::all();
+        $data['fuel_options'] = FuelOptions::all();
+        $data['car_makes'] = CarMake::all();
+        $data['car_models'] = CarModel::all();
+        return view('tripsheet.add', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoretripsheetsRequest  $request
+     * @param \App\Http\Requests\StoretripsheetsRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoretripsheetsRequest $request)
     {
-        //
+        $distance = $request->post('odometer_in') - $request->post('odometer_out');
+        $tripsheet = new Tripsheet();
+        $tripsheet->user_id = Auth::id();
+        $tripsheet->name = $request->post('name');
+        $tripsheet->period = $request->post('period_from') . ' - ' . $request->post('period_to');
+        $tripsheet->car_make_id = $request->post('car_make_id');
+        $tripsheet->car_model_id = $request->post('car_model_id');
+        $tripsheet->plate_no = $request->post('plate_no');
+        $tripsheet->destination = $request->post('destination');
+        $tripsheet->departure_time = $request->post('departure_time');
+        $tripsheet->return_time = $request->post('return_time');
+        $tripsheet->fuel_type_id = $request->post('fuel_type_id');
+        $tripsheet->fuel_option_id = $request->post('fuel_option_id');
+        $tripsheet->odometer_out = $request->post('odometer_out');
+        $tripsheet->odometer_in = $request->post('odometer_in');
+        $tripsheet->fuel_norm = $request->post('fuel_norm');
+        $tripsheet->fuel_out = $request->post('fuel_out');
+        $tripsheet->fuel_used = $distance * ($request->post('fuel_norm') / 100);
+        $tripsheet->fuel_in = $request->post('fuel_out') - $tripsheet->fuel_used + $request->post('fuel_received');
+        if ($request->post('fuel_received') !== null) {
+            $tripsheet->fuel_received = $request->post('fuel_received');
+        } else {
+            $tripsheet->fuel_received = 0;
+        }
+        $tripsheet->distance = $distance;
+        $tripsheet->company_id = Auth::user()->company_id;
+        $tripsheet->save();
+        return redirect()->route('tripsheet.index');
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\tripsheets  $tripsheets
+     * @param \App\Models\Tripsheet $tripsheets
      * @return \Illuminate\Http\Response
      */
-    public function show(tripsheets $tripsheets)
+    public function show(Tripsheet $tripsheet)
     {
-        //
+        $data['tripsheet'] = $tripsheet;
+        return view('tripsheet.show', $data);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\tripsheets  $tripsheets
+     * @param \App\Models\Tripsheet $tripsheets
      * @return \Illuminate\Http\Response
      */
-    public function edit(tripsheets $tripsheets)
+    public function edit(Tripsheet $tripsheet)
     {
-        //
+        $data['tripsheet'] = $tripsheet;
+        $date = substr($tripsheet->period, 0, 10);
+        Carbon::setLocale('lt');
+        $month = Carbon::createFromFormat('Y-m-d', $date)->translatedFormat('F');
+        $data['fuels'] = FuelType::all();
+        $data['fuel_options'] = FuelOptions::all();
+        $data['car_makes'] = CarMake::all();
+        $data['car_models'] = CarModel::all();
+        $data['period_from'] = substr($tripsheet->period, 0, 10);
+        $data['period_to'] = substr($tripsheet->period, -10);
+        return view('tripsheet.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdatetripsheetsRequest  $request
-     * @param  \App\Models\tripsheets  $tripsheets
+     * @param \App\Http\Requests\UpdatetripsheetsRequest $request
+     * @param \App\Models\Tripsheet $tripsheets
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatetripsheetsRequest $request, tripsheets $tripsheets)
+    public function update(UpdatetripsheetsRequest $request, Tripsheet $tripsheet)
     {
-        //
+        $distance = $request->post('odometer_in') - $request->post('odometer_out');
+        $tripsheet->user_id = Auth::id();
+        $tripsheet->name = $request->post('name');
+        $tripsheet->period = $request->post('period_from') . ' - ' . $request->post('period_to');
+        $tripsheet->car_make_id = $request->post('car_make_id');
+        $tripsheet->car_model_id = $request->post('car_model_id');
+        $tripsheet->plate_no = $request->post('plate_no');
+        $tripsheet->destination = $request->post('destination');
+        $tripsheet->departure_time = $request->post('departure_time');
+        $tripsheet->return_time = $request->post('return_time');
+        $tripsheet->fuel_type_id = $request->post('fuel_type_id');
+        $tripsheet->fuel_option_id = $request->post('fuel_option_id');
+        $tripsheet->odometer_out = $request->post('odometer_out');
+        $tripsheet->odometer_in = $request->post('odometer_in');
+        $tripsheet->fuel_norm = $request->post('fuel_norm');
+        $tripsheet->fuel_out = $request->post('fuel_out');
+        $tripsheet->fuel_used = $distance * ($request->post('fuel_norm') / 100);
+        $tripsheet->fuel_in = $request->post('fuel_out') - $tripsheet->fuel_used + $request->post('fuel_received');
+        if ($request->post('fuel_received') !== 0) {
+            $tripsheet->fuel_received = $request->post('fuel_received');
+        } else {
+            $tripsheet->fuel_received = 0;
+        }
+        $tripsheet->distance = $distance;
+        $tripsheet->company_id = Auth::user()->company->id;
+        $tripsheet->save();
+
+        return redirect()->route('tripsheet.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\tripsheets  $tripsheets
+     * @param \App\Models\Tripsheet $tripsheets
      * @return \Illuminate\Http\Response
      */
-    public function destroy(tripsheets $tripsheets)
+    public function destroy(Tripsheet $tripsheets)
     {
-        //
+
     }
+
 }

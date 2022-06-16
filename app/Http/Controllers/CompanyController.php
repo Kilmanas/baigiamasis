@@ -9,10 +9,11 @@ class CompanyController extends Controller
 {
     public function create(Request $request)
     {
-        $company = new company();
-        $company->name = $request->post('company');
-        $company->address = $request->post('address');
-        $company->phone = $request->post('phone');
-        $company->save();
+        $name = $request->post('company');
+        $company = Company::firstOrCreate(
+            ['name' => $name],
+            ['address' => $request->post('address')],
+            ['phone' => $request->post('phone')]
+        );
     }
 }

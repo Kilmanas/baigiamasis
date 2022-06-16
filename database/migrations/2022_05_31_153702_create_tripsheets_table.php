@@ -13,7 +13,7 @@ class CreateTripsheetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tripsheets', function (Blueprint $table) {
+        Schema::create('Tripsheet', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
             $table->string('name', 10);
@@ -22,8 +22,8 @@ class CreateTripsheetsTable extends Migration
             $table->integer('car_make_id');
             $table->integer('car_model_id');
             $table->string('destination');
-            $table->time('departure_time')->nullable();
-            $table->time('return_time')->nullable();
+            $table->string('departure_time')->nullable();
+            $table->string('return_time')->nullable();
             $table->integer('fuel_type_id');
             $table->integer('odometer_out');
             $table->integer('odometer_in');
@@ -43,6 +43,6 @@ class CreateTripsheetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tripsheets');
+        Schema::dropIfExists('Tripsheet');
     }
 }
