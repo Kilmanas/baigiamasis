@@ -9,8 +9,8 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">Pavadinimas</th>
-                    <th scope="col">Periodas</th>
+                    <th scope="col"> @sortablelink('name', 'Pavadinimas')</th>
+                    <th scope="col"> @sortablelink ('period', 'Periodas')</th>
                     <th scope="col">Automobilio markė</th>
                     <th scope="col">Automobilio modelis</th>
                 </tr>

@@ -6,12 +6,12 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">Pavadinimas</th>
-                    <th scope="col">Vairuotojas</th>
-                    <th scope="col">Periodas</th>
+                    <th scope="col"> @sortablelink('name','Pavadinimas')</th>
+                    <th scope="col"> @sortablelink('user.name', 'Vairuotojas')</th>
+                    <th scope="col"> @sortablelink('period','Periodas')</th>
                     <th scope="col">Automobilio markė</th>
                     <th scope="col">Automobilio modelis</th>
-                    <th scope="col">Suvartota kuro</th>
+                    <th scope="col"> @sortablelink('fuel_used','Suvartota kuro')</th>
                 </tr>
                 </thead>
                 @foreach($tripsheets as $tripsheet)

@@ -12,6 +12,7 @@ use App\Models\FuelType;
 use App\Models\Tripsheet;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Kyslik\ColumnSortable\Sortable;
 
 class TripsheetsController extends Controller
 {
@@ -28,7 +29,7 @@ class TripsheetsController extends Controller
      */
     public function index()
     {
-        $data['tripsheets'] = Tripsheet::where('user_id', Auth::id())->orderBy('id', "desc")->paginate(30);
+        $data['tripsheets'] = Tripsheet::where('user_id', Auth::id())->with(['user'])->sortable()->paginate(30);
         $data['fuel_types'] = FuelType::all();
         $data['fuel_options'] = FuelOptions::all();
         $data['car_makes'] = CarMake::all();
@@ -174,9 +175,27 @@ class TripsheetsController extends Controller
      * @param \App\Models\Tripsheet $tripsheets
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tripsheet $tripsheets)
+    public function destroy(Tripsheet $tripsheet)
+    {
+        $tripsheet->delete();
+    }
+
+    public function getModels()
     {
 
+        $makeId = $_POST['make'] ?? 0;
+        $models = [];
+        $carModels = CarModel::where('make_id', $makeId)->get();
+
+            foreach ($carModels as $model) {
+
+                $models[] = ['id' => $model->id, 'name' => $model->name];
+
+        }
+
+        return json_encode($models);
+
     }
+
 
 }

@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Kyslik\ColumnSortable\Sortable;
 
 class CompanyAdminPanelController extends Controller
 {
@@ -73,7 +74,8 @@ class CompanyAdminPanelController extends Controller
 
     public function companyTripsheets()
     {
-        $data['tripsheets'] = Tripsheet::where('company_id', Auth::user()->company_id)->paginate(30);
+        $data['tripsheets'] = Tripsheet::where('company_id', Auth::user()->company_id)->with(['user'])->sortable()
+            ->paginate(30);
         return view('company-admin-panel.tripsheets_list', $data);
     }
 }

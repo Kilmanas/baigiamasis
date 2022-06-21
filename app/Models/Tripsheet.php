@@ -4,10 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Tripsheet extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
+
+    public $sortable = [
+        'id',
+        'name',
+        'period',
+        'fuel_type_id',
+        'fuel_used',
+        'fuel_received,',
+        'plate_no'
+    ];
 
     public function fuelType()
     {

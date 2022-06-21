@@ -22,6 +22,7 @@ Route::post('/company/create', [App\Http\Controllers\CompanyController::class, '
 Auth::routes();
 
 Route::resource('/tripsheet', 'App\Http\Controllers\TripsheetsController');
+Route::post('/getmodels', [App\Http\Controllers\TripsheetsController::class, 'getModels'])->name('getmodels');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/role/create', [App\Http\Controllers\RoleController::class, 'create'])->name('role.create');
 Route::get('/role/assign', [App\Http\Controllers\RoleController::class, 'assign'])->name('role.assign');

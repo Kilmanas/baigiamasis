@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -58,10 +65,7 @@
 
                         <div class="col-md-6">
                             <select id="car_model_id" name="car_model_id" class="form-control">
-                                <option>Modelis</option>
-                                @foreach($car_models as $model)
-                                    <option value="{{$model->id}}">{{$model->name}}</option>
-                                @endforeach
+                                <option value="0">Modelis</option>
                             </select>
                         </div>
                     </div>
@@ -172,8 +176,31 @@
                             <input id="submit" type="submit" class="btn btn-primary" value="Pateikti">
                         </div>
                     </div>
-            </div>
+                </div>
             </form>
+            <script>
+                $(document).ready(function(){
+                    $("#car_make_id").change(function(){
+                        var makeId = $(this).val();
+                        console.log(makeId);
+                        $.ajax({
+                            url: '{{ route('getmodels') }}',
+                            type: 'POST',
+                            data: {make:makeId},
+                            dataType: 'json',
+                            success:function(response){
+                                var len = response.length;
+                                $("#car_model_id").empty();
+                                for( var i = 0; i<len; i++){
+                                    var id = response[i]['id'];
+                                    var name = response[i]['name'];
+                                    $("#car_model_id").append("<option value='"+id+"'>"+name+"</option>");
+                                }
+                            }
+                        });
+                    });
+                });
+            </script>
         </div>
     </div>
     </div>
