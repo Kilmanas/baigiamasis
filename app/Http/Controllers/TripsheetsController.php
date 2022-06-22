@@ -11,8 +11,8 @@ use App\Models\FuelOptions;
 use App\Models\FuelType;
 use App\Models\Tripsheet;
 use Carbon\Carbon;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Kyslik\ColumnSortable\Sortable;
 
 class TripsheetsController extends Controller
 {
@@ -25,7 +25,7 @@ class TripsheetsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -40,30 +40,28 @@ class TripsheetsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
         $tripsheet = Tripsheet::where('user_id', Auth::id())->orderBy('id', 'DESC')->first();
         if ($tripsheet != null) {
-            $data['tripsheet'] = Tripsheet::where('user_id', Auth::id())->orderBy('id', 'DESC')->first();
+            $data['tripsheet'] = Tripsheet::where('user_id', Auth::id())->orderBy('period', 'DESC')->first();
         }
         $data['fuels'] = FuelType::all();
         $data['fuel_options'] = FuelOptions::all();
         $data['car_makes'] = CarMake::all();
-        $data['car_models'] = CarModel::all();
         return view('tripsheet.add', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \App\Http\Requests\StoretripsheetsRequest $request
-     * @return \Illuminate\Http\Response
+     * @param StoretripsheetsRequest $request
+     * @return Response
      */
     public function store(StoretripsheetsRequest $request)
     {
-        $validated = $request->validated();
         $distance = $request->post('odometer_in') - $request->post('odometer_out');
         $tripsheet = new Tripsheet();
         $tripsheet->user_id = Auth::id();
@@ -98,8 +96,8 @@ class TripsheetsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Tripsheet $tripsheets
-     * @return \Illuminate\Http\Response
+     * @param Tripsheet $tripsheets
+     * @return Response
      */
     public function show(Tripsheet $tripsheet)
     {
@@ -110,16 +108,13 @@ class TripsheetsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Tripsheet $tripsheets
-     * @return \Illuminate\Http\Response
+     * @param Tripsheet $tripsheets
+     * @return Response
      */
     public function edit(Tripsheet $tripsheet)
     {
 
         $data['tripsheet'] = $tripsheet;
-        $date = substr($tripsheet->period, 0, 10);
-        Carbon::setLocale('lt');
-        $month = Carbon::createFromFormat('Y-m-d', $date)->translatedFormat('F');
         $data['fuels'] = FuelType::all();
         $data['fuel_options'] = FuelOptions::all();
         $data['car_makes'] = CarMake::all();
@@ -132,13 +127,12 @@ class TripsheetsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \App\Http\Requests\UpdatetripsheetsRequest $request
-     * @param \App\Models\Tripsheet $tripsheets
-     * @return \Illuminate\Http\Response
+     * @param UpdatetripsheetsRequest $request
+     * @param Tripsheet $tripsheets
+     * @return Response
      */
     public function update(UpdatetripsheetsRequest $request, Tripsheet $tripsheet)
     {
-        $validated = $request->validated();
         $distance = $request->post('odometer_in') - $request->post('odometer_out');
         $tripsheet->user_id = Auth::id();
         $tripsheet->name = $request->post('name');
@@ -172,30 +166,11 @@ class TripsheetsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Tripsheet $tripsheets
-     * @return \Illuminate\Http\Response
+     * @param Tripsheet $tripsheets
+     * @return Response
      */
     public function destroy(Tripsheet $tripsheet)
     {
         $tripsheet->delete();
     }
-
-    public function getModels()
-    {
-
-        $makeId = $_POST['make'] ?? 0;
-        $models = [];
-        $carModels = CarModel::where('make_id', $makeId)->get();
-
-            foreach ($carModels as $model) {
-
-                $models[] = ['id' => $model->id, 'name' => $model->name];
-
-        }
-
-        return json_encode($models);
-
-    }
-
-
 }

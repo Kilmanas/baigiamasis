@@ -9,6 +9,7 @@
                     <th scope="col">Pavadinimas</th>
                     <th scope="col">Periodas</th>
                     <th scope="col">Automobilis</th>
+                    <th scope="col">Valstybinis Nr.</th>
                     <th scope="col">Adresas</th>
                     <th scope="col">Išvykimo laikas</th>
                     <th scope="col">Parvykimo laikas</th>
@@ -28,6 +29,7 @@
                     <td>{{$tripsheet->name}}</td>
                     <td>{{$tripsheet->period}} {{$tripsheet->day}}</td>
                     <td>{{$tripsheet->carMake->name}} {{$tripsheet->carModel->name}}</td>
+                    <td>{{$tripsheet->plate_no}}</td>
                     <td>{{$tripsheet->destination}}</td>
                     <td>{{$tripsheet->departure_time}}</td>
                     <td>{{$tripsheet->return_time}}</td>

@@ -17,16 +17,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::post('/company/create', [App\Http\Controllers\CompanyController::class, 'create'])->name('company-create');
 
 Auth::routes();
 
 Route::resource('/tripsheet', 'App\Http\Controllers\TripsheetsController');
-Route::post('/getmodels', [App\Http\Controllers\TripsheetsController::class, 'getModels'])->name('getmodels');
+Route::post('/getmodels', [App\Http\Controllers\CarModelController::class, 'getModels'])->name('getmodels');
+Route::post('/getoptions', [App\Http\Controllers\FuelOptionController::class, 'fuelOption'])->name('getoptions');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/role/create', [App\Http\Controllers\RoleController::class, 'create'])->name('role.create');
 Route::get('/role/assign', [App\Http\Controllers\RoleController::class, 'assign'])->name('role.assign');
-Route::get('/permission/assign', [App\Http\Controllers\RoleController::class, 'permissionToRole'])->name('permission.assign');
+Route::get('/permission/assign', [App\Http\Controllers\RoleController::class, 'permissionToRole'])
+    ->name('permission.assign');
 Route::post('/comadmin/store/user', [App\Http\Controllers\CompanyAdminPanelController::class, 'storeUser'])
     ->name('user.store');
 Route::get('/comadmin/user/create', [App\Http\Controllers\CompanyAdminPanelController::class, 'createUser'])

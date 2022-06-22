@@ -25,18 +25,17 @@ class StoretripsheetsRequest extends FormRequest
     {
         return [
             'name' => 'required|max:5',
-            'car_make_id' => 'required',
-            'car_model_id' => 'required',
+            'car_make_id' => 'required|integer',
+            'car_model_id' => 'required|integer',
             'plate_no' => 'required|max:6',
-            'destination' => 'required|max:255',
-            'odometer_out' => 'required',
-            'odometer_in' => 'required',
-            'fuel_type_id' => 'required',
-            'fuel_option_id' => 'required',
+            'destination' => 'required|string|max:255',
+            'odometer_out' => 'required|integer',
+            'odometer_in' => 'required|integer',
+            'fuel_type_id' => 'required|integer',
+            'fuel_option_id' => 'required|integer',
             'fuel_norm' => 'required|max:6',
             'fuel_out' => 'required|max:6',
             'fuel_received' => 'required|max:6',
-
         ];
     }
 }

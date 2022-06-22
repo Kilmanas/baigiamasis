@@ -28,7 +28,6 @@ class Report
         $fuelReceivedArr = [];
         $fuelUsedArr = [];
         $fuelInArr = [];
-        $i = 0;
         $tripsheets = Tripsheet::where('user_id', Auth::id())->where('period', "LIKE", '%' . $period . '%')->get();
         $first = reset($tripsheets);
         foreach ($tripsheets as $tripsheet) {

@@ -138,9 +138,6 @@
                         <div class="col-md-6">
                             <select id="fuel_option" name="fuel_option_id" class="form-control">
                                 <option>Markė</option>
-                                @foreach($fuel_options as $option)
-                                    <option value="{{$option->id}}">{{$option->name}}</option>
-                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -178,29 +175,8 @@
                     </div>
                 </div>
             </form>
-            <script>
-                $(document).ready(function(){
-                    $("#car_make_id").change(function(){
-                        var makeId = $(this).val();
-                        console.log(makeId);
-                        $.ajax({
-                            url: '{{ route('getmodels') }}',
-                            type: 'POST',
-                            data: {make:makeId},
-                            dataType: 'json',
-                            success:function(response){
-                                var len = response.length;
-                                $("#car_model_id").empty();
-                                for( var i = 0; i<len; i++){
-                                    var id = response[i]['id'];
-                                    var name = response[i]['name'];
-                                    $("#car_model_id").append("<option value='"+id+"'>"+name+"</option>");
-                                }
-                            }
-                        });
-                    });
-                });
-            </script>
+            <script src="{{ asset('js/model.js') }}"> </script>
+            <script src="{{ asset('js/fuelOptions.js') }}"> </script>
         </div>
     </div>
     </div>
