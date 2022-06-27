@@ -13,20 +13,24 @@ class CreateTripsheetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('Tripsheet', function (Blueprint $table) {
+        Schema::create('Tripsheets', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->string('name', 10);
             $table->string('period');
             $table->string('day');
-            $table->integer('car_make_id');
-            $table->integer('car_model_id');
+            $table->foreignId('car_make_id')->constrained()->onDelete('cascade');
+            $table->foreignId('car_model_id')->constrained()->onDelete('cascade');
+            $table->string('plate_no');
             $table->string('destination');
             $table->string('departure_time')->nullable();
             $table->string('return_time')->nullable();
-            $table->integer('fuel_type_id');
+            $table->foreignId('fuel_type_id')->constrained()->onDelete('cascade');
+            $table->foreignId('fuel_option_id')->constrained()->onDelete('cascade');
             $table->integer('odometer_out');
             $table->integer('odometer_in');
+            $table->integer('distance');
             $table->float('fuel_norm');
             $table->float('fuel_out');
             $table->float('fuel_in');

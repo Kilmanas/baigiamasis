@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\StoreusersRequest;
 use App\Models\Tripsheet;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -25,7 +27,7 @@ class CompanyAdminPanelController extends Controller
         return view('company-admin-panel.create_user');
     }
 
-    public function storeUser(Request $request)
+    public function storeUser(StoreUserRequest $request)
     {
         if ($request->post('password') === $request->post('repeat-password'))
             $id = Auth::id();
@@ -37,6 +39,7 @@ class CompanyAdminPanelController extends Controller
         $user->active = 1;
         $user->save();
         $user->assignRole('user');
+        $user->givePermissionTo('CRUD tripsheets');
         return redirect()->route('user.list');
     }
 

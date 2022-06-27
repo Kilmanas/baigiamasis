@@ -2,25 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
-    public function create()
+    public function create(Request $request)
     {
-        $role = Role::create(['name' => 'User']);
+        Role::create(['name' => "$request->name"]);
     }
 
-    public function assign()
+    public function setCompanyAdmin($user)
     {
-        $user = Auth::user();
         $user->assignRole('company-admin');
     }
 
-    public function permissionToRole()
+    public function setUser($user)
     {
-        $user = Auth::user();
-        $user->givePermissionTo('manage company');
+        $user->assignRole('user');
     }
+
 }

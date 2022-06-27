@@ -159,25 +159,22 @@
                                    @isset($tripsheet->fuel_in)value="{{$tripsheet->fuel_in}}"@endisset>
                         </div>
                     </div>
-                    <div class="row mb-0">
-                        <div class="row mb-3">
-                            <label for="fuel_received"
-                                   class="col-md-4 col-form-label text-md-end">{{ __('Gauta degalų') }}</label>
+                    <div class="row mb-3">
+                        <label for="fuel_received"
+                               class="col-md-4 col-form-label text-md-end">{{ __('Gauta degalų') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="fuel_received" name="fuel_received" type="number" step="0.01"
-                                       class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-md-6 offset-md-4">
-                            <input id="submit" type="submit" class="btn btn-primary" value="Pateikti">
+                        <div class="col-md-6">
+                            <input id="fuel_received" name="fuel_received" type="number" step="0.01"
+                                   class="form-control">
                         </div>
                     </div>
-                </div>
-            </form>
-            <script src="{{ asset('js/model.js') }}"> </script>
-            <script src="{{ asset('js/fuelOptions.js') }}"> </script>
+                    <div class="col-md-6 offset-md-4">
+                        <input id="submit" type="submit" class="btn btn-primary" value="Pateikti">
+                    </div>
+                </form>
+            </div>
+            <script src="{{ asset('js/model.js') }}"></script>
+            <script src="{{ asset('js/fuelOptions.js') }}"></script>
         </div>
-    </div>
     </div>
 @endsection

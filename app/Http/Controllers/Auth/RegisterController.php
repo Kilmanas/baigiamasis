@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\RoleController;
 use App\Models\company;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -53,6 +54,9 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'company' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:15'],
+            'address' => ['required', 'string', 'max:255'],
         ]);
     }
 
@@ -66,18 +70,22 @@ class RegisterController extends Controller
     {
         $company = Company::firstOrCreate(
             ['name' => $data['company']],
-            ['phone' => $data['phone']],
-            ['address' => $data['address']],
-
+            ['phone' => $data['phone'], 'address' => $data['address']],
         );
 
-        User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'company_id' => $company->id,
             'active' => 0,
         ]);
-
+        if ($company->wasRecentlyCreated){
+            $user->assignRole('company-admin');
+            $user->givePermissionTo(['manage company', 'CRUD tripsheets']);
+        } else {
+            $user->assignRole('user');
+            $user->givePermissionTo('CRUD tripsheets');
+        }
     }
 }

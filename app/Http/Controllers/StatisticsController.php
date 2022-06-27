@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class StatisticsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:manage company']);
+    }
     public function index()
     {
         $data['periods'] = Tripsheet::select('period')->where('company_id', Auth::user()->company->id)
