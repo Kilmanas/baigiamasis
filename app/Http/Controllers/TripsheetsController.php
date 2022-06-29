@@ -10,7 +10,6 @@ use App\Models\Fuel;
 use App\Models\FuelOptions;
 use App\Models\FuelType;
 use App\Models\Tripsheet;
-use Carbon\Carbon;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -44,10 +43,8 @@ class TripsheetsController extends Controller
      */
     public function create()
     {
-        $tripsheet = Tripsheet::where('user_id', Auth::id())->orderBy('id', 'DESC')->first();
-        if ($tripsheet != null) {
-            $data['tripsheet'] = Tripsheet::where('user_id', Auth::id())->orderBy('period', 'DESC')->first();
-        }
+
+        $data['tripsheet'] = Tripsheet::where('user_id', Auth::id())->orderBy('period', 'DESC')->first();
         $data['fuels'] = FuelType::all();
         $data['fuel_options'] = FuelOptions::all();
         $data['car_makes'] = CarMake::all();
@@ -90,7 +87,6 @@ class TripsheetsController extends Controller
         $tripsheet->company_id = Auth::user()->company_id;
         $tripsheet->save();
         return redirect()->route('tripsheet.index');
-
     }
 
     /**
@@ -113,7 +109,6 @@ class TripsheetsController extends Controller
      */
     public function edit(Tripsheet $tripsheet)
     {
-
         $data['tripsheet'] = $tripsheet;
         $data['fuels'] = FuelType::all();
         $data['fuel_options'] = FuelOptions::all();

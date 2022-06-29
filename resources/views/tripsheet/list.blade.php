@@ -13,6 +13,7 @@
                     <th scope="col"> @sortablelink ('period', 'Periodas')</th>
                     <th scope="col">Automobilio markė</th>
                     <th scope="col">Automobilio modelis</th>
+                    <th scope="col">Valstybinis Nr.</th>
                 </tr>
                 </thead>
                 @foreach($tripsheets as $tripsheet)
@@ -22,9 +23,10 @@
                         <td>{{$tripsheet->period}} {{$tripsheet->day}}</td>
                         <td>{{$tripsheet->carMake->name}}</td>
                         <td>{{$tripsheet->carModel->name}}</td>
-                        <td><a href="{{route('export.tripsheet', $tripsheet->id)}}">Atsisiųsti (.xls)</a>
-                            <a href="{{route('tripsheet.show', $tripsheet->id)}}">Daugiau</a>
+                        <td>{{$tripsheet->plate_no}}</td>
+                        <td><a href="{{route('tripsheet.show', $tripsheet->id)}}">Daugiau</a>
                             <a href="{{route('tripsheet.edit', $tripsheet->id)}}">Redaguoti</a>
+                            <a href="{{route('export.tripsheet', $tripsheet->id)}}">Atsisiųsti (.xls)</a>
                             <a href="{{route('tripsheet.destroy', $tripsheet->id)}}">Ištrinti</a>
                         </td>
                     </tr>

@@ -17,7 +17,6 @@ class CreateFuelOptionsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('fuel_type_id');
-            $table->timestamps();
         });
     }
 

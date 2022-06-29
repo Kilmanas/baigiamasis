@@ -14,11 +14,12 @@ class FuelOptionsSeeder extends Seeder
      */
     public function run()
     {
-        $fuelOptions = ['E86', '92', '95', '98', 'D'];
+        $fuelOptions = ['E85', '92', '95', '98', 'D'];
         foreach ($fuelOptions as $fuelOption) {
             DB::table('fuel_options')->insert([
 
-                'name' => $fuelOption
+                'name' => $fuelOption,
+                'fuel_type_id' => 1
             ]);
         }
     }

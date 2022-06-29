@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\StoreusersRequest;
 use App\Models\Tripsheet;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -39,7 +38,7 @@ class CompanyAdminPanelController extends Controller
         $user->active = 1;
         $user->save();
         $user->assignRole('user');
-        $user->givePermissionTo('CRUD tripsheets');
+        $user->givePermissionTo('user');
         return redirect()->route('user.list');
     }
 

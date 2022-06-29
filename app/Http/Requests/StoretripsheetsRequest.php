@@ -30,7 +30,7 @@ class StoretripsheetsRequest extends FormRequest
             'plate_no' => 'required|max:6',
             'destination' => 'required|string|max:255',
             'odometer_out' => 'required|integer',
-            'odometer_in' => 'required|integer',
+            'odometer_in' => 'required|integer|gt:odometer_out',
             'fuel_type_id' => 'required|integer',
             'fuel_option_id' => 'required|integer',
             'fuel_norm' => 'required|max:6',

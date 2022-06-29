@@ -18,14 +18,4 @@ class ReportServiceProvider extends ServiceProvider
             return new Report();
         });
     }
-
-    /**
-     * Bootstrap services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        //
-    }
 }

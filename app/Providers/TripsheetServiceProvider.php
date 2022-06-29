@@ -18,14 +18,4 @@ class TripsheetServiceProvider extends ServiceProvider
             return new Tripsheet();
         });
     }
-
-    /**
-     * Bootstrap services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        //
-    }
 }

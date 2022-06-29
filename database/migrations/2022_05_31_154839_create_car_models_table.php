@@ -17,7 +17,6 @@ class CreateCarModelsTable extends Migration
             $table->id();
             $table->integer('make_id');
             $table->string('name');
-            $table->timestamps();
         });
     }
 

@@ -78,14 +78,14 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'company_id' => $company->id,
-            'active' => 0,
+            'active' => true,
         ]);
         if ($company->wasRecentlyCreated){
             $user->assignRole('company-admin');
-            $user->givePermissionTo(['manage company', 'CRUD tripsheets']);
+            $user->givePermissionTo(['manage company', 'user']);
         } else {
             $user->assignRole('user');
-            $user->givePermissionTo('CRUD tripsheets');
+            $user->givePermissionTo('user');
         }
     }
 }

@@ -31,11 +31,11 @@ class StatisticsController extends Controller
             ->where('period', "LIKE", '%' . $period . '%')->sum('distance');
         $petrol = Tripsheet::where('company_id', Auth::user()->company->id)
             ->where('period', "LIKE", '%' . $period . '%')
-            ->whereIn('fuel_type_id', [6, 7, 8])
+            ->where('fuel_type_id', 1)
             ->sum('fuel_used');
         $diesel = Tripsheet::where('company_id', Auth::user()->company->id)
             ->where('period', "LIKE", '%' . $period . '%')
-            ->whereIn('fuel_type_id', [9, 10])
+            ->where('fuel_type_id', 2)
             ->sum('fuel_used');
         return view('stats.month')
             ->with('fuel_used', $fuel_used)

@@ -12,7 +12,7 @@ class Report
 {
     public function boot(Router $router)
     {
-        $router->bind('period', function ($period) { // route:  /reports/{id}
+        $router->bind('period', function ($period) {
             $this->parameters($period);
         });
     }

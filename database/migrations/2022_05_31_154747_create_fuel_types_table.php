@@ -16,7 +16,6 @@ class CreateFuelTypesTable extends Migration
         Schema::create('fuel_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->timestamps();
         });
     }
 

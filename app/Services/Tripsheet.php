@@ -10,7 +10,7 @@ class Tripsheet
 {
     public function boot(Router $router)
     {
-        $router->bind('id', function ($id) { // route:  /reports/{id}
+        $router->bind('id', function ($id) {
             $this->parameters($id);
         });
     }
