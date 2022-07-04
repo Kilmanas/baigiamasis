@@ -16,3 +16,4 @@ mix.js('resources/js/app.js', 'public/js')
     .sourceMaps();
 mix.js('resources/js/model.js', 'public/js');
 mix.js('resources/js/fuelOptions.js', 'public/js');
+mix.js('resources/js/datePicker.js', 'public/js');

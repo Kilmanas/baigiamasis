@@ -35,7 +35,7 @@
                                class="col-md-4 col-form-label text-md-end">{{ __('Periodas nuo') }}</label>
 
                         <div class="col-md-6">
-                            <input id="period_from" name="period_from" type="date" class="form-control">
+                            <input id="period_from" name="period_from" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -43,7 +43,7 @@
                                class="col-md-4 col-form-label text-md-end">{{ __('Periodas iki') }}</label>
 
                         <div class="col-md-6">
-                            <input id="period_to" name="period_to" type="date" class="form-control">
+                            <input id="period_to" name="period_to" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -174,6 +174,7 @@
                 </form>
             </div>
             <script src="{{ asset('js/model.js') }}"></script>
+            <script src="{{ asset('js/datePicker.js') }}"></script>
             <script src="{{ asset('js/fuelOptions.js') }}"></script>
         </div>
     </div>

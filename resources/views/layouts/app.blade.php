@@ -13,6 +13,8 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,6 +22,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+
 </head>
 <body>
 <div id="app">
@@ -55,9 +59,16 @@
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Registruotis') }}</a>
                             </li>
                         @endif
-
-
                     @else
+                        <li class="nav-item">
+                            <a class="dropdown-item" href="{{ route('tripsheet.create') }}">Pridėti kelionės
+                                lapą</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{{ route('tripsheet.index') }}">Peržiūrėti kelionės
+                                lapus</a>
+                        </li>
+                        <li></li><a class="dropdown-item" href="{{ route('report.select') }}">Mėnesio atskaita</a>
+                        </li>
                         @can('manage company')
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -86,11 +97,6 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('tripsheet.create') }}">Pridėti kelionės
-                                    lapą</a>
-                                <a class="dropdown-item" href="{{ route('tripsheet.index') }}">Peržiūrėti kelionės
-                                    lapus</a>
-                                <a class="dropdown-item" href="{{ route('report.select') }}">Mėnesio atskaita</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

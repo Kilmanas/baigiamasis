@@ -6,7 +6,6 @@ use App\Http\Requests\StoretripsheetsRequest;
 use App\Http\Requests\UpdatetripsheetsRequest;
 use App\Models\CarMake;
 use App\Models\CarModel;
-use App\Models\Fuel;
 use App\Models\FuelOptions;
 use App\Models\FuelType;
 use App\Models\Tripsheet;
@@ -167,5 +166,6 @@ class TripsheetsController extends Controller
     public function destroy(Tripsheet $tripsheet)
     {
         $tripsheet->delete();
+        return redirect()->route('tripsheet.index');
     }
 }

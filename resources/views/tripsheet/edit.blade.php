@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -29,7 +36,7 @@
                                class="col-md-4 col-form-label text-md-end">{{ __('Periodas nuo') }}</label>
 
                         <div class="col-md-6">
-                            <input id="period_from" name="period_from" type="date" class="form-control"
+                            <input id="period_from" name="period_from" type="text" class="form-control"
                                    value="{{$period_from}}">
                         </div>
                     </div>
@@ -38,7 +45,7 @@
                                class="col-md-4 col-form-label text-md-end">{{ __('Periodas iki') }}</label>
 
                         <div class="col-md-6">
-                            <input id="period_to" name="period_to" type="date" class="form-control"
+                            <input id="period_to" name="period_to" type="text" class="form-control"
                                    value="{{$period_to}}">
                         </div>
                     </div>
@@ -48,7 +55,6 @@
 
                         <div class="col-md-6">
                             <select id="car_make_id" name="car_make_id" class="form-control">
-                                <option>Markė</option>
                                 @foreach($car_makes as $make)
                                     @if ($make->id == $tripsheet->car_make_id)
                                         <option selected="{{$make->id}}" value="{{$make->id}}">{{$make->name}}</option>
@@ -65,15 +71,7 @@
 
                         <div class="col-md-6">
                             <select id="car_model_id" name="car_model_id" class="form-control">
-                                <option>Modelis</option>
-                                @foreach($car_models as $model)
-                                    @if ($model->id == $tripsheet->car_model_id)
-                                        <option selected="{{$model->id}}"
-                                                value="{{$model->id}}">{{$model->name}}</option>
-                                    @else
-                                        <option value="{{$model->id}}">{{$model->name}}</option>
-                                    @endif
-                                @endforeach
+                                <option>{{$tripsheet->carModel->name}}</option>
                             </select>
                         </div>
                     </div>
@@ -137,7 +135,6 @@
 
                         <div class="col-md-6">
                             <select id="fuel_type" name="fuel_type_id" class="form-control">
-                                <option>Tipas</option>
                                 @foreach($fuels as $fuel)
                                     @if ($fuel->id == $tripsheet->fuel_type_id)
                                         <option selected="{{$fuel->id}}" value="{{$fuel->id}}">{{$fuel->name}}</option>
@@ -154,15 +151,7 @@
 
                         <div class="col-md-6">
                             <select id="fuel_option" name="fuel_option_id" class="form-control">
-                                <option>Markė</option>
-                                @foreach($fuel_options as $option)
-                                    @if ($option->id == $tripsheet->fuel_option_id)
-                                        <option selected="{{$option->id}}"
-                                                value="{{$option->id}}">{{$option->name}}</option>
-                                    @else
-                                        <option value="{{$option->id}}">{{$option->name}}</option>
-                                    @endif
-                                @endforeach
+                                <option>{{$tripsheet->fuelOption->name}}</option>
                             </select>
                         </div>
                     </div>
@@ -203,5 +192,7 @@
             </div>
         </div>
     </div>
-    </div>
+    <script src="{{ asset('js/model.js') }}"></script>
+    <script src="{{ asset('js/datePicker.js') }}"></script>
+    <script src="{{ asset('js/fuelOptions.js') }}"></script>
 @endsection
