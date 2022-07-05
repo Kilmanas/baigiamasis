@@ -78,7 +78,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'company_id' => $company->id,
-            'active' => true,
+            'active' => 1,
         ]);
         if ($company->wasRecentlyCreated){
             $user->assignRole('company-admin');

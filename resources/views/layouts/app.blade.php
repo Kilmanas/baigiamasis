@@ -61,13 +61,13 @@
                         @endif
                     @else
                         <li class="nav-item">
-                            <a class="dropdown-item" href="{{ route('tripsheet.create') }}">Pridėti kelionės
+                            <a class="nav-link" href="{{ route('tripsheet.create') }}">Pridėti kelionės
                                 lapą</a>
                         </li>
-                        <li><a class="dropdown-item" href="{{ route('tripsheet.index') }}">Peržiūrėti kelionės
+                        <li><a class="nav-link" href="{{ route('tripsheet.index') }}">Peržiūrėti kelionės
                                 lapus</a>
                         </li>
-                        <li></li><a class="dropdown-item" href="{{ route('report.select') }}">Mėnesio atskaita</a>
+                        <li><a class="nav-link" href="{{ route('report.select') }}">Mėnesio atskaita</a>
                         </li>
                         @can('manage company')
                             <li class="nav-item dropdown">
@@ -89,6 +89,22 @@
                                     <a class="dropdown-item" href="{{ route('user.list') }}">
                                         Peržiūrėti vartotojus
                                     </a>
+                                </div>
+                            </li>
+                        @endcan
+                        @can('admin')
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    Administratorius
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('admin.users') }}">
+                                        Vartotojų valdymas
+                                    </a>
+                                </div>
+                            </li>
                         @endcan
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
