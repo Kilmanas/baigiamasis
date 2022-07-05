@@ -8,7 +8,8 @@ use Kyslik\ColumnSortable\Sortable;
 
 class Tripsheet extends Model
 {
-    use HasFactory, Sortable;
+    use HasFactory;
+    use Sortable;
 
     public $sortable = [
         'id',

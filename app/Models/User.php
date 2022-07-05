@@ -11,7 +11,9 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, Sortable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use Sortable;
+
 
     /**
      * The attributes that are mass assignable.
@@ -46,15 +48,12 @@ class User extends Authenticatable
     public $sortable = [
         'name',
         'email',
+        'active'
     ];
 
     public function company()
     {
         return $this->hasOne(company::class, 'id', 'company_id');
-    }
-    public function tripsheet()
-    {
-        return $this->belongsTo(Tripsheet::class);
     }
 
 }

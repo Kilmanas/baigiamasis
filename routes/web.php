@@ -35,6 +35,13 @@ Route::group(['prefix' => 'comadmin'], function(){
         ->name('user.update');
     Route::get('/user/list', [App\Http\Controllers\CompanyAdminPanelController::class, 'showUsers'])->name('user.list');
 });
+Route::group(['prefix' => 'admin'], function() {
+    Route::get('/users', [App\Http\Controllers\AdminController::class, 'users'])->name('admin.users');
+    Route::get('/user/deactivate/{user_id}', [App\Http\Controllers\AdminController::class, 'deactivate'])->name('admin.deactivate');
+    Route::get('/user/activate/{user_id}', [App\Http\Controllers\AdminController::class, 'activate'])->name('admin.activate');
+    Route::get('/user/edit/{user_id}', [App\Http\Controllers\AdminController::class, 'userEdit'])->name('admin.user-edit');
+    Route::post('/user/update/{user_id}', [App\Http\Controllers\AdminController::class, 'userUpdate'])->name('admin.user-update');
+});
 Route::post('/getmodels', [App\Http\Controllers\CarModelController::class, 'getModels'])->name('getmodels');
 Route::post('/getoptions', [App\Http\Controllers\FuelOptionController::class, 'fuelOption'])->name('getoptions');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

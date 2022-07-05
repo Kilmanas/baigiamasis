@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $("#car_make_id.log()").change(function(){
+    $("#car_make_id").change(function(){
         var makeId = $(this).val();
         console.log("veikia");
         $.ajax({

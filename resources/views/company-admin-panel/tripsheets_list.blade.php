@@ -7,7 +7,7 @@
                 <thead>
                 <tr>
                     <th scope="col"> @sortablelink('name','Pavadinimas')</th>
-                    <th scope="col"> Vairuotojas</th>
+                    <th scope="col">Vairuotojas</th>
                     <th scope="col"> @sortablelink('period','Periodas')</th>
                     <th scope="col">Automobilio markė</th>
                     <th scope="col">Automobilio modelis</th>

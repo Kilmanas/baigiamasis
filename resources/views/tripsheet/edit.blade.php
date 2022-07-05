@@ -71,7 +71,7 @@
 
                         <div class="col-md-6">
                             <select id="car_model_id" name="car_model_id" class="form-control">
-                                <option>{{$tripsheet->carModel->name}}</option>
+                                <option value="{{$tripsheet->carModel->id}}">{{$tripsheet->carModel->name}}</option>
                             </select>
                         </div>
                     </div>
@@ -151,7 +151,7 @@
 
                         <div class="col-md-6">
                             <select id="fuel_option" name="fuel_option_id" class="form-control">
-                                <option>{{$tripsheet->fuelOption->name}}</option>
+                                <option value="{{$tripsheet->fuelOption->id}}">{{$tripsheet->fuelOption->name}}</option>
                             </select>
                         </div>
                     </div>
