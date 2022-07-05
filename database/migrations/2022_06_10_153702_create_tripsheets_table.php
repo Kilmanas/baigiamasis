@@ -47,6 +47,6 @@ class CreateTripsheetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Tripsheet');
+        Schema::dropIfExists('TripsheetParams');
     }
 }

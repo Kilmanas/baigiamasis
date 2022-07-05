@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Services\Tripsheet;
+use App\Services\TripsheetParams;
 use Illuminate\Support\ServiceProvider;
 
 class TripsheetServiceProvider extends ServiceProvider
@@ -14,8 +14,8 @@ class TripsheetServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\Services\Tripsheet', function ($app) {
-            return new Tripsheet();
+        $this->app->bind('App\Services\TripsheetParams', function ($app) {
+            return new TripsheetParams();
         });
     }
 }

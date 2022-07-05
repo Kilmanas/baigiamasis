@@ -14,7 +14,7 @@ class FuelTypesSeeder extends Seeder
      */
     public function run()
     {
-        $fuelTypes = ['Benzinas', 'Benzinas/Elektra', 'Dyzelinas', 'Dyzelinas/Elektra'];
+        $fuelTypes = ['Benzinas', 'Dyzelinas'];
         foreach ($fuelTypes as $fuelType) {
             DB::table('fuel_types')->insert([
 

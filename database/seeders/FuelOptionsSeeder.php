@@ -16,11 +16,19 @@ class FuelOptionsSeeder extends Seeder
     {
         $fuelOptions = ['E85', '92', '95', '98', 'D'];
         foreach ($fuelOptions as $fuelOption) {
-            DB::table('fuel_options')->insert([
+            if($fuelOption != 'D') {
+                DB::table('fuel_options')->insert([
 
-                'name' => $fuelOption,
-                'fuel_type_id' => 1
-            ]);
+                    'name' => $fuelOption,
+                    'fuel_type_id' => 1
+                ]);
+            } else {
+                DB::table('fuel_options')->insert([
+
+                    'name' => $fuelOption,
+                    'fuel_type_id' => 2
+                ]);
+            }
         }
     }
 }

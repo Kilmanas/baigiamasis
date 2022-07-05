@@ -2,11 +2,12 @@
 
 namespace App\Services;
 
+use App\Models\Tripsheet;
 use Carbon\Carbon;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Auth;
 
-class Tripsheet
+class TripsheetParams
 {
     public function boot(Router $router)
     {
@@ -15,9 +16,9 @@ class Tripsheet
         });
     }
 
-    public function parameters($id)
+    public function parameters($id): array
     {
-        $tripsheet = \App\Models\Tripsheet::find($id);
+        $tripsheet = Tripsheet::find($id);
         $date = substr($tripsheet->period, 0, 10);
         Carbon::setLocale('lt');
         $month = Carbon::createFromFormat('Y-m-d', $date)->translatedFormat('F');

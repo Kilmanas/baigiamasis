@@ -11,7 +11,7 @@ class UpdatetripsheetsRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,7 +21,7 @@ class UpdatetripsheetsRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => 'required|max:5',
@@ -35,7 +35,7 @@ class UpdatetripsheetsRequest extends FormRequest
             'fuel_option_id' => 'required',
             'fuel_norm' => 'required|max:6',
             'fuel_out' => 'required|max:6',
-            'fuel_received' => 'required|max:6',
+            'fuel_received' => 'max:6',
         ];
     }
 }

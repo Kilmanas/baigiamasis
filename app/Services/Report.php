@@ -17,7 +17,7 @@ class Report
         });
     }
 
-    public function parameters($period)
+    public function parameters($period): array
     {
         $now = new DateTime();
         $periodArr = [];
@@ -34,8 +34,11 @@ class Report
             if ($tripsheet === reset($first)) {
                 $startFuel = $tripsheet->fuel_out;
             }
-            array_push($periodArr, str_replace('-', '.', substr($tripsheet->period, 0, 10)) . '-' .
-                substr($tripsheet->period, -2));
+            array_push(
+                $periodArr,
+                str_replace('-', '.', substr($tripsheet->period, 0, 10)) . '-' .
+                substr($tripsheet->period, -2)
+            );
             array_push($nameArr, $tripsheet->name);
             array_push($odometerOutArr, $tripsheet->odometer_out);
             array_push($odometerInArr, $tripsheet->odometer_in);

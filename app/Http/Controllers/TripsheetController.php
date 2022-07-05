@@ -12,7 +12,7 @@ use App\Models\Tripsheet;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-class TripsheetsController extends Controller
+class TripsheetController extends Controller
 {
 
     public function __construct()

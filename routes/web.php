@@ -20,7 +20,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::resource('/tripsheet', 'App\Http\Controllers\TripsheetsController');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('/tripsheet', 'App\Http\Controllers\TripsheetController');
 Route::group(['prefix' => 'comadmin'], function(){
     Route::post('/store/user', [App\Http\Controllers\CompanyAdminPanelController::class, 'storeUser'])
         ->name('user.store');

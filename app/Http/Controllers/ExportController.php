@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use alhimik1986\PhpExcelTemplator\PhpExcelTemplator;
 use App\Models\Tripsheet;
 use App\Services\Report;
-use App\Services\Tripsheet as TripsheetService;
+use App\Services\TripsheetParams as TripsheetService;
 use Illuminate\Http\Request;
 
 
